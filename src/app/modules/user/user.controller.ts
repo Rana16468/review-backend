@@ -34,21 +34,12 @@ const createAccount:RequestHandler = catchAsync(async (req, res) => {
     });
 });
 
-const changeProfilePicture: RequestHandler = catchAsync(async (req, res) => {
-    const result = await UserService.changeProfilePictureIntoDB(req.user.id, req.body);
 
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
-        success: true,
-        message: "Profile picture changed successfully",
-        data: result,
-    });
-});
 
 
 const UserController = {
     createUser,
     createAccount,
-    changeProfilePicture
+  
 };
 export default UserController;

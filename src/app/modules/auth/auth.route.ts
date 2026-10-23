@@ -17,11 +17,10 @@ router.post(
   AuthController.refreshToken
 );
 
-router.patch('/change-password',auth(Role.ADMIN, Role.LANDLORD, Role.TENANT),
-     validationRequest(AuthValidation.changePasswordZodSchema),
-      AuthController.changePassword);
 
-router.get('/profile',auth(Role.ADMIN, Role.LANDLORD, Role.TENANT),
+
+router.get('/profile',
+      auth(Role.ADMIN, Role.MENTOR, Role.STUDENT),
       AuthController.findBySpecificUserProfile);
 
 const AuthRoutes = router;

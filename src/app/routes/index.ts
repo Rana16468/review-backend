@@ -2,10 +2,9 @@ import express from "express";
 import { TestRoutes } from "../modules/testModule/test.route";
 import UserRoutes from "../modules/user/user.route";
 import AuthRoutes from "../modules/auth/auth.route";
-import { SubscriptionPlanRoutes } from "../modules/subscriptionPlan/subscriptionPlan.route";
-import UserSubscriptionRoutes from "../modules/userSubscription/userSubscription.route";
-import { PropertyRoutes } from "../modules/property/property.route";
-import UnitRouter from "../modules/unit/unit.route";
+import AssigmentRouter from "../modules/assignment/assignment.route";
+import submissionRouter from "../modules/submission/submission.route";
+
 
 const router = express.Router();
 
@@ -15,29 +14,22 @@ const moduleRoutes = [
     route: TestRoutes,
   },
   {
-    path:"/user",
+    path: "/user",
     route: UserRoutes
   },
   {
-    path:"/auth",
+    path: "/auth",
     route: AuthRoutes
   },
   {
-    path:"/subscription-plan",
-    route: SubscriptionPlanRoutes
+    path: "/assigment",
+    route: AssigmentRouter
   },
   {
-    path:"/user_subscription",
-    route: UserSubscriptionRoutes
-  }, {
-    path:"/property",
-    route: PropertyRoutes
-  },
-  {
-    path:"/unit",
-    route:  UnitRouter
+    path: "/submission",
+    route: submissionRouter
   }
-];
+]
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
 

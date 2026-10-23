@@ -60,7 +60,7 @@ const auth = (...requiredRoles: Role[]) =>
     if (user === null) {
       user = await prisma.user.findUnique({
         where: { id: userId, isDeleted: false, status: Status.ACTIVE, isVerify: true },
-        select: { id: true, role: true, phone: true },
+        select: { id: true, role: true, email: true },
       });
 
       if (user) {
@@ -76,7 +76,7 @@ const auth = (...requiredRoles: Role[]) =>
       throw new AppError(httpStatus.FORBIDDEN, 'You do not have permission for this action');
     }
 
-    req.user = { id: user.id, role: user.role, phone: user.phone };
+    req.user = { id: user.id, role: user.role, email: user.email };
 
     next();
   });

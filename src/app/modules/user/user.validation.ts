@@ -9,11 +9,6 @@ const createUserZodSchema = z.object({
       })
       .min(1, 'Name cannot be empty'),
 
-    // phone: z
-    //   .string({
-    //     error: 'Phone number is required',
-    //   })
-    //   .min(10, 'Phone number must be at least 10 digits'),
 
     password: z
       .string()
@@ -27,14 +22,12 @@ const createUserZodSchema = z.object({
       .or(z.literal('')),
 
     status: z.nativeEnum(Status).default(Status.ACTIVE),
-    role: z.nativeEnum(Role).default(Role.LANDLORD),
+    role: z.nativeEnum(Role).default(Role.STUDENT),
 
     os: z.string().optional(),
     browser: z.string().optional(),
     device: z.string().optional(),
-    ipAddress: z.string().optional(),
 
-    isOnline: z.boolean().default(true),
     isVerify: z.boolean().default(false),
     photo: z.string().optional(),
     isDeleted: z.boolean().default(false),
@@ -71,9 +64,8 @@ const createAdminAccountZodSchema = z.object({
     os: z.string().optional(),
     browser: z.string().optional(),
     device: z.string().optional(),
-    ipAddress: z.string().optional(),
-
-    isOnline: z.boolean().default(true),
+   
+    
     isVerify: z.boolean().default(true),
     photo: z.string().optional(),
     isDeleted: z.boolean().default(false),
