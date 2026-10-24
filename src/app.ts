@@ -5,10 +5,12 @@ import router from "./app/routes";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler";
 import notFound from "./app/middlewares/notFound";
 import cookieParser from "cookie-parser";
+import cron from 'node-cron';
+import autoDeleteAssignment from "./app/utils/autoDeleteAssignment";
 
 const app: Application = express();
 
-// CORS কনফিগারেশন সংশোধন করা হয়েছে
+
 app.use(
   cors({
     origin: [
@@ -20,15 +22,20 @@ app.use(
   })
 );
 
-// parsers
+
 app.use(express.json());
 app.use(cookieParser());
 
-// router setup
+
 app.use("/api/v1", router);
 
 app.get("/", (req: Request, res: Response) => {
   res.send(`Server Running on port ${config.port}`);
+});
+
+cron.schedule('0 0 * * *', async () => {
+  console.log('Running cron job to delete expired assignments...');
+  await autoDeleteAssignment();
 });
 
 app.use(globalErrorHandler);
