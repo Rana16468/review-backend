@@ -39,7 +39,7 @@ model User {
   browser   String?
   device    String?
   isVerify  Boolean  @default(false)
-  photo     String? // প্রফাইল ছবি
+  photo     String? 
   isDeleted Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -47,7 +47,7 @@ model User {
   assignments Assignment[]
   submissions Submission[]
 
-  @@index([email, status, role, isDeleted])
+  @@index([email, status, role, isDeleted, os])
   @@map("users")
 }
 

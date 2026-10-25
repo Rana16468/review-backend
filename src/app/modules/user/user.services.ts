@@ -1,3 +1,4 @@
+
 import { Role, Status, User } from "@prisma/client";
 import AppError from "../../errors/AppError";
 import prisma from "../../shared/prisma";
@@ -90,7 +91,7 @@ const createUserIntoDb = async (
                 name: payload.name,
                 role: payload.role,
                 email: payload.email,
-                photo: payload.photo, // অপশনাল ফিল্ড
+                photo: payload.photo, 
                 os: payload.os,
                 browser: payload.browser,
                 device: payload.device,
@@ -252,10 +253,45 @@ const avaterIntoDb = async (userId: string) => {
     }
 };
 
+const createGoogleAuthIntoDb=async(payload:User)=>{
+
+    try{
+
+        const result= await prisma.$transaction(async(tx)=>{
+
+             const isExistUser= await tx.user.findFirst({
+                where:{
+                    email:payload.email
+                }
+             });
+
+             if(isExistUser){
+                return "this account alredy exist"
+             }
+             const create=await prisma.user.create({
+                data:payload
+             });
+
+             return {create}
+
+
+        });
+
+        return result
+
+    }
+    catch (error) {
+        throw catchError(error);
+    }
+
+
+}
+
 const UserService = {
     createUserIntoDb,
     createAccountIntoDb,
-    avaterIntoDb
+    avaterIntoDb,
+    createGoogleAuthIntoDb
 };
 
 export default UserService;
