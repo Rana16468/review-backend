@@ -21,6 +21,10 @@ router.post('/create-admin-account',
     UserController.createAccount
 );
 
+router.post("/googleauth",
+     validationRequest(UserValidation.createUserZodSchema),
+      UserController.createGoogleAuth)
+
 
 
 
