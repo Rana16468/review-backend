@@ -7,15 +7,15 @@
     "ts-express-kit": "./dist/bin/cli.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "node init && tsc",
     "postinstall": "prisma generate",
     "lint": "eslint src --ignore-path .eslintignore --ext .ts",
     "lint:fix": "npx eslint src --fix",
     "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
     "prettier:fix": "npx prettier --write src",
-    "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "dev": "node init && ts-node-dev --respawn --transpile-only ./src/server.ts",
     "prod": "node ./dist/server.js",
-    "start": "node ./dist/server.js",
+    "start": "node init && node ./dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -44,6 +44,7 @@
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.3.0",
     "node-cron": "^4.6.0",
+    "node-fetch": "^3.3.2",
     "nodemailer": "^9.1.1",
     "pg": "^8.23.0",
     "pino": "^10.3.1",
